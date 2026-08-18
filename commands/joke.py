@@ -11,6 +11,15 @@ def getjoke():
 
 getjoke()
 
-@app_commands.command(name="tellmeajoke", description="I'll tell you a hilarious joke")
+@app_commands.command(
+    name="tellmeajoke",
+    description="I'll tell you a hilarious joke"
+)
 async def joke(interaction: discord.Interaction):
-    await interaction.response.send_message(f"- {getjoke()["id"]}\n- {getjoke()["setup"]}\n- {getjoke()["punchline"]}")
+    data = getjoke()
+
+    await interaction.response.send_message(
+        f"- {data['id']}\n"
+        f"- {data['setup']}\n"
+        f"- {data['punchline']}"
+    )
