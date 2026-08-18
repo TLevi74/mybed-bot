@@ -7,46 +7,33 @@ import random
 @app_commands.command(name="meme", description="Random meme")
 async def meme(interaction: discord.Interaction):
 
-    url = "https://www.reddit.com/r/memes/hot.json?limit=50"
+    await interaction.response.defer()
 
-    headers = {
-        "User-Agent": "MyDiscordBot/1.0"
-    }
+    url = "https://meme-api.com/gimme"
 
-    async with aiohttp.ClientSession(headers=headers) as session:
-        async with session.get(url) as response:
+    try:
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url) as response:
 
-            if response.status != 200:
-                await interaction.response.send_message(
-                    "Couldn't get a meme right now."
-                )
-                return
+                if response.status != 200:
+                    await interaction.followup.send(
+                        "Couldn't get a meme right now."
+                    )
+                    return
 
-            data = await response.json()
+                data = await response.json()
 
-    posts = data["data"]["children"]
+        image_url = data["url"]
+        title = data["title"]
 
-    images = []
+        embed = discord.Embed(title=title)
+        embed.set_image(url=image_url)
 
-    for post in posts:
-        post_data = post["data"]
+        await interaction.followup.send(embed=embed)
 
-        if post_data.get("post_hint") == "image":
-            images.append(post_data)
+    except Exception as e:
+        print("ERROR:", repr(e))
 
-    if not images:
-        await interaction.response.send_message(
-            "Couldn't find a meme right now."
+        await interaction.followup.send(
+            "Something went wrong while getting the meme."
         )
-        return
-
-    meme = random.choice(images)
-
-    embed = discord.Embed(
-        title=meme["title"],
-        url="https://reddit.com" + meme["permalink"]
-    )
-
-    embed.set_image(url=meme["url"])
-
-    await interaction.response.send_message(embed=embed)
