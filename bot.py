@@ -10,6 +10,7 @@ from commands.joke import joke
 from commands.weather import weather
 from commands.quote import quote
 from commands.foodplace import foodplace
+from commands.meme import meme
 
 load_dotenv()
 
@@ -28,6 +29,7 @@ class MyClient(discord.Client):
         self.tree.add_command(weather)
         self.tree.add_command(quote)
         self.tree.add_command(foodplace)
+        self.tree.add_command(meme)
         await self.tree.sync()
 
 
