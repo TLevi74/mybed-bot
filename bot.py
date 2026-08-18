@@ -5,6 +5,7 @@ from discord import app_commands
 from dotenv import load_dotenv
 
 from commands.hello import hello
+from commands.szabi import szabi
 
 load_dotenv()
 
@@ -18,6 +19,7 @@ class MyClient(discord.Client):
 
     async def setup_hook(self):
         self.tree.add_command(hello)
+        self.tree.add_command(szabi)
         await self.tree.sync()
 
 
