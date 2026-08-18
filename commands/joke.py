@@ -19,7 +19,6 @@ async def joke(interaction: discord.Interaction):
     data = getjoke()
 
     await interaction.response.send_message(
-        f"- {data['id']}\n"
         f"- {data['setup']}\n"
         f"- {data['punchline']}"
     )
