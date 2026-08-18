@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 from commands.hello import hello
 from commands.szabi import szabi
 from commands.joke import joke
+from commands.weather import weather
 
 load_dotenv()
 
@@ -22,6 +23,7 @@ class MyClient(discord.Client):
         self.tree.add_command(hello)
         self.tree.add_command(szabi)
         self.tree.add_command(joke)
+        self.tree.add_command(weather)
         await self.tree.sync()
 
 
