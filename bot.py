@@ -24,6 +24,8 @@ class MyClient(discord.Client):
         self.tree.add_command(hello)
         self.tree.add_command(szabi)
         self.tree.add_command(joke)
+        self.tree.add_command(weather)
+        self.tree.add_command(quote)
         await self.tree.sync()
 
 
