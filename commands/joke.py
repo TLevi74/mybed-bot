@@ -11,5 +11,5 @@ def getjoke():
 
 
 @app_commands.command(name="tellmeajoke", description="I'll tell you a hilarious joke")
-async def hello(interaction: discord.Interaction):
+async def joke(interaction: discord.Interaction):
     await interaction.response.send_message(f"- {getjoke()[0]}\n- {getjoke()[1]}")
